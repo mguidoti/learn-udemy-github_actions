@@ -16,6 +16,10 @@ jobs:
       steps:
         - name: Accessing Dispatch Payload
           run: "echo ${{ github.event.client_payload.env }}"
+        - name: Provoking a failure
+          run: |
+            pwd
+            provoking_failure -a
         - name: List Files
           run: |
             pwd
