@@ -14,6 +14,8 @@ jobs:
     run-github-actions:
       runs-on: ubuntu-latest
       steps:
+        - name: Accessing Dispatch Payload
+          run: echo ${{ github.event.payload.env }}
         - name: List Files
           run: |
             pwd
