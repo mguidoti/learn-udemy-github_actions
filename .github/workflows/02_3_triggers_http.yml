@@ -1,4 +1,4 @@
-name: Actions - Chapter 2 - Triggers on Dispatch
+name: Chapter 2.3 - Triggers on Dispatch
 
 on:
   # push:
@@ -15,7 +15,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Accessing Dispatch Payload
-          run: echo ${{ github.event.payload.env }}
+          run: "echo ${{ github.event.payload.env }}"
         - name: List Files
           run: |
             pwd
