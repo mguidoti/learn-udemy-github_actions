@@ -1,0 +1,41 @@
+name: Actions - Chapter 2 - Triggers on Schedule
+
+on:
+  # push:
+  pull_request:
+    types: [closed, assigned, opened, reopened]
+  # schedule:
+    # - cron: "0/5 * * * *" # runs at every 5 min
+    # - cron: "0/6 * * * *" # runs at every 6 min
+  repository_dispatch:
+    types: [build]
+
+jobs:
+    run-github-actions:
+      runs-on: ubuntu-latest
+      steps:
+        - name: List Files
+          run: |
+            pwd
+            ls -a
+        - name: Accessing Env Vars
+          run: |
+            echo $GITHUB_SHA
+            echo $GITHUB_REPOSITORY
+            echo $GITHUB_WORKSPACE
+            echo "${{ github.token }}"
+            # git clone git@github:$GITHUB_REPOSITORY
+            # git checkout $GITHUB_SHA
+        - name: Checkout
+          uses: actions/checkout@v1
+        - name: List Files After Checkout
+          run: |
+              pwd
+              ls -a
+        - name: simple javascript action
+          id: greet
+          uses: actions/hello-world-javascript-action@v1
+          with:
+            who-to-great: John
+        - name: Log Greeting Time
+          run: echo "${{ steps.greet.outputs.time }}"
