@@ -1,4 +1,4 @@
-name: Chapter 3.5 - Exploring Functions
+name: Chapter 3.6 - IF and Job Status Functions
 on: [push, pull_request]
 
 jobs:
