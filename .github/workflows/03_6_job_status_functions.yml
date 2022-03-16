@@ -16,10 +16,10 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - name: Failed Step
-        run: eccho "$GITHUB_CONTEXT"
+        run: eccho ${{ format('Hello {0} {1} {2}', 'World', '!', '!') }}
       - name: Even with Failure Run Step
         if: failure()
-        run: echo "$GITHUB_CONTEXT"
+        run: echo ${{ format('Hello {0} {1} {2}', 'World', '!', '!') }}
       - name: Always Run Step
         if: always()
-        run: echo "$GITHUB_CONTEXT"
+        run: echo ${{ format('Hello {0} {1} {2}', 'World', '!', '!') }}
