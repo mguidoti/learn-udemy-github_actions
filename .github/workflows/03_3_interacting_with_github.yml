@@ -33,7 +33,7 @@ jobs:
           git init
           # This way we can authenticate in order to perform the command
           # Since we don't have ssh configured in this VM, that's the only way
-          git remote add "https://$GITHUB_ACTOR:
+          git remote add origin "https://$GITHUB_ACTOR:
           ${{ secrets.GITHUB_TOKEN }}@github.com/
           $GITHUB_REPOSITORY.git"
           git config --global user.email "my-bot@bot.com"
