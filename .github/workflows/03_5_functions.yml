@@ -1,0 +1,13 @@
+name: Chapter 3.5 - Exploring Functions
+on: push
+
+jobs:
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump Functions
+        run: |
+          echo ${{ contains( 'hello', 'll' ) }}
+          echo ${{ startsWith( 'hello', 'he' ) }}
+          echo ${{ endsWith( 'hello', 'lo' ) }}
+          echo ${{ format('Hello {0} {1} {2}', 'World', '!', '!') }}
