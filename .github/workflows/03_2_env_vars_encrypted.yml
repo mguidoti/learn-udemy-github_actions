@@ -1,4 +1,4 @@
-name: Chapter 3.1 - Env Variables
+name: Chapter 3.2 - Encrypted Env Variables
 on: [push]
 env:
   WF_ENV: Available to all jobs
