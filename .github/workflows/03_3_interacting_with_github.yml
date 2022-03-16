@@ -1,0 +1,55 @@
+name: Chapter 3.3 - Interacting with Github
+on: [push]
+env:
+  WF_ENV: Available to all jobs
+jobs:
+  create_commit:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create issue using REST API
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Automated issue for commit: ${{ github.sha }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
+            }' \
+          --fail
+  create_file_and_commit:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: List Files Before Clonning
+        run: |
+          pwd
+          ls -a
+      - name: Clone Repo
+        run: |
+          git init
+          # This way we can authenticate in order to perform the command
+          # Since we don't have ssh configured in this VM, that's the only way
+          git remote add "https://$GITHUB_ACTOR:
+          ${{ secrets.GITHUB_TOKEN }}@github.com/
+          $GITHUB_REPOSITORY.git"
+          git config --global user.email "my-bot@bot.com"
+          git config --global user.name "my-bot"
+          git fetch
+          git checkout main
+          git branch --set-upstream-to=origin/main
+          git pull
+      - name: List Files After Clonning
+        run: ls -a
+      - name: Create File
+        run: echo $RANDOM >> random.txt
+      - name: List Files Again
+        run: ls -a
+      - name: Push Files
+        run: |
+          git add random.txt
+          git commit -m 'auto: Add random file'
+          git push
